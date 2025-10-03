@@ -5,10 +5,36 @@ En esta clase nos enfocaremos en **los fundamentos de Docker**, ejecutaremos nue
 ---
 
 ## Objetivos de aprendizaje
-- Comprender qué es Docker y en qué se diferencia de las máquinas virtuales.
-- Ejecutar el primer container (contenedor) (*hello-world*) y un servicio web (Nginx).
-- Conocer y practicar comandos básicos de Docker.
-- Explorar Docker Hub para descubrir images (imágenes) oficiales.
+- Comprender qué es Docker y en qué se diferencia de las máquinas virtuales
+- Ejecutar el primer container (contenedor) (*hello-world*) y un servicio web (Nginx)
+- Conocer y practicar comandos básicos de Docker
+- Explorar Docker Hub para descubrir images (imágenes) oficiales
+
+---
+
+## Conceptos Clave
+
+### Containers (Contenedores) vs Máquinas Virtuales
+- **Container**: Proceso aislado que comparte el kernel del sistema operativo
+- **VM**: Sistema operativo completo virtualizado con su propio kernel
+- Containers son más ligeros, rápidos de iniciar y eficientes en recursos
+
+### Docker Components
+- **Docker Engine**: Runtime que ejecuta containers
+- **Image (Imagen)**: Template read-only, blueprint de un container
+- **Container (Contenedor)**: Instancia ejecutable de una imagen
+- **Docker Hub**: Registry público de imágenes
+
+### Comandos Fundamentales
+- `docker run`: Crear y ejecutar un container desde una imagen
+- `docker ps`: Listar containers en ejecución
+- `docker logs`: Ver salida de un container
+- `docker exec`: Ejecutar comandos dentro de un container corriendo
+- `docker stop/rm`: Detener y eliminar containers
+
+**Para profundizar:**
+- [Docker Overview](https://docs.docker.com/get-started/overview/)
+- [Containers vs VMs](https://docs.docker.com/get-started/overview/#containers-vs-virtual-machines)
 
 ---
 

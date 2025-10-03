@@ -81,6 +81,23 @@ cd curso-docker-kubernetes/bloque-docker/clase1-introduccion
 
 ---
 
+## Proyecto Integrador
+
+El curso incluye un **proyecto integrador full-stack** que evoluciona progresivamente clase a clase.
+
+**📦 Repositorio:** [proyecto-integrador-docker-k8s](https://github.com/alefiengo/proyecto-integrador-docker-k8s)
+
+### Stack Completo (Clase 8)
+- Spring Boot + Angular
+- PostgreSQL + Redis
+- Kong (Docker) / NGINX Ingress (Kubernetes)
+- Prometheus + Grafana + Loki
+- HPA (Autoscaling)
+
+**[Ver más detalles →](PROYECTO_INTEGRADOR.md)**
+
+---
+
 ## Notas
 
 - Este repositorio es **público** y forma parte del curso oficial de i-Quattro
