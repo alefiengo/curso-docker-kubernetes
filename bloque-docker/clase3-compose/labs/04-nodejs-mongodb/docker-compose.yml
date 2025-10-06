@@ -1,0 +1,51 @@
+services:
+  app:
+    build: ./app
+    container_name: nodejs-app
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://db:27017/tasksdb
+      - NODE_ENV=development
+    depends_on:
+      - db
+    networks:
+      - app-network
+    volumes:
+      - ./app:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    image: mongo:7
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=tasksdb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=db
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

@@ -34,7 +34,9 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
 
 ## Contenido del Curso
 
-1. **[Introducción a containers (contenedores) y Docker](bloque-docker/clase1-introduccion/)**
+### Temario (10 puntos)
+
+1. Introducción a containers (contenedores) y Docker
 2. Manejo de images (imágenes), containers (contenedores) y networks (redes)
 3. Docker avanzado y Docker Compose
 4. Seguridad en imágenes y escaneo de vulnerabilidades
@@ -44,6 +46,54 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
 8. Escalado automático (HPA) e Ingress
 9. Observabilidad (logs, métricas, Prometheus/Grafana)
 10. Proyecto final integrador
+
+---
+
+## Clases (8 sesiones de 2.5 horas)
+
+### Bloque 1: Docker (Clases 1-5)
+
+- **[Clase 1: Introducción a Containers y Docker](bloque-docker/clase1-introduccion/)**
+  - Instalación y configuración
+  - Primeros containers: hello-world, nginx, ubuntu
+  - Docker Hub y exploración de images oficiales
+
+- **[Clase 2: Dockerfiles y Construcción de Imágenes](bloque-docker/clase2-dockerfiles/)**
+  - Anatomía de un Dockerfile
+  - Multi-stage builds para optimización
+  - Publicar imágenes en Docker Hub
+
+- **[Clase 3: Docker Compose - Redes y Volúmenes](bloque-docker/clase3-compose/)**
+  - Orquestación multi-contenedor con Docker Compose
+  - Redes personalizadas y segmentación de servicios
+  - Volúmenes para persistencia de datos
+
+- **Clase 4: Microservicios, Cache y Gateway** (próximamente)
+  - Aplicación multi-contenedor con cache
+  - API Gateway con Kong
+  - Comunicación entre servicios
+
+- **Clase 5: Seguridad y Optimización** (próximamente)
+  - Escaneo de vulnerabilidades con Trivy
+  - Buenas prácticas de seguridad
+  - Optimización de imágenes
+
+### Bloque 2: Kubernetes (Clases 6-8)
+
+- **Clase 6: Arquitectura Kubernetes** (próximamente)
+  - Deployments y Services
+  - Migración desde Docker Compose
+
+- **Clase 7: Configuración y Networking** (próximamente)
+  - ConfigMaps, Secrets y Probes
+  - Ingress y TLS
+
+- **Clase 8: Escalado y Observabilidad** (próximamente)
+  - HPA (Horizontal Pod Autoscaler)
+  - Prometheus + Grafana + Loki
+  - Proyecto final
+
+**[Ver bloques completos →](bloque-docker/)**
 
 ---
 

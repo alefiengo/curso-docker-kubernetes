@@ -29,6 +29,27 @@ Al finalizar este bloque, serás capaz de:
 
 **[Cheat Sheet - Clase 1](clase1-introduccion/cheatsheet.md)**
 
+### [Clase 2: Dockerfiles y Construcción de Imágenes](clase2-dockerfiles/)
+
+- Anatomía de un Dockerfile
+- Construir imágenes personalizadas
+- Multi-stage builds para optimización
+- Buenas prácticas de seguridad (non-root users)
+- Publicar imágenes en Docker Hub
+- Concepto de capas y cache
+
+**[Cheat Sheet - Clase 2](clase2-dockerfiles/cheatsheet.md)**
+
+### [Clase 3: Docker Compose, Redes y Volúmenes](clase3-compose/)
+
+- Orquestación multi-contenedor con Docker Compose
+- Redes personalizadas y segmentación de servicios
+- Volúmenes para persistencia de datos
+- Comunicación entre servicios con DNS interno
+- Aplicación full-stack: Node.js + MongoDB
+
+**[Cheat Sheet - Clase 3](clase3-compose/cheatsheet.md)**
+
 ---
 
 ## Recursos adicionales
