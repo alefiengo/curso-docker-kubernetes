@@ -74,10 +74,10 @@ PING app2 (172.18.0.3): 56 data bytes
 ```
 
 **Características:**
-- ✅ DNS automático (comunicación por nombre)
-- ✅ Aislamiento entre redes
-- ✅ Control de qué contenedores se comunican
-- ✅ Mejor seguridad
+- DNS automático (comunicación por nombre)
+- Aislamiento entre redes
+- Control de qué contenedores se comunican
+- Mejor seguridad
 
 ---
 
@@ -102,10 +102,10 @@ curl http://localhost
 **Salida esperada:** HTML de nginx
 
 **Características:**
-- ✅ Mejor rendimiento (sin NAT)
-- ⚠️ Sin aislamiento de red
-- ⚠️ No portable (funciona diferente en Mac/Windows)
-- ⚠️ Conflictos de puerto si el host ya usa ese puerto
+- Mejor rendimiento (sin NAT)
+- ADVERTENCIA: Sin aislamiento de red
+- ADVERTENCIA: No portable (funciona diferente en Mac/Windows)
+- ADVERTENCIA: Conflictos de puerto si el host ya usa ese puerto
 
 **Uso común:** Aplicaciones que necesitan máximo rendimiento de red.
 
@@ -156,7 +156,7 @@ docker run -d --name nginx2 --network red1 nginx:alpine
 docker exec nginx1 ping -c 2 nginx2
 ```
 
-**Resultado:** ✅ Funciona inmediatamente
+**Resultado:** Funciona inmediatamente
 
 ---
 
@@ -290,10 +290,10 @@ docker exec nginx1 ping -c 2 nginx2
 
 | Tipo | DNS Interno | Aislamiento | Performance | Uso Común |
 |------|-------------|-------------|-------------|-----------|
-| **bridge (default)** | ❌ No | ✅ Sí | Normal | Contenedores simples |
-| **custom bridge** | ✅ Sí | ✅ Sí | Normal | **Producción (recomendado)** |
-| **host** | N/A | ❌ No | ✅ Alto | Apps de alto rendimiento |
-| **none** | N/A | ✅ Total | N/A | Procesamiento offline |
+| **bridge (default)** | No | Sí | Normal | Contenedores simples |
+| **custom bridge** | Sí | Sí | Normal | **Producción (recomendado)** |
+| **host** | N/A | No | Alto | Apps de alto rendimiento |
+| **none** | N/A | Total | N/A | Procesamiento offline |
 
 ---
 

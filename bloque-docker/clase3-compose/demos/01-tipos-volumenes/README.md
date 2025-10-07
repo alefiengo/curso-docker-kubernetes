@@ -55,11 +55,11 @@ Datos persistentes
 ```
 
 **Características:**
-- ✅ Docker gestiona la ubicación física
-- ✅ Portables entre sistemas
-- ✅ Mejor rendimiento
-- ✅ Pueden compartirse entre contenedores
-- ✅ Recomendado para producción
+- Docker gestiona la ubicación física
+- Portables entre sistemas
+- Mejor rendimiento
+- Pueden compartirse entre contenedores
+- Recomendado para producción
 
 ---
 
@@ -95,11 +95,11 @@ Desde el contenedor
 ```
 
 **Características:**
-- ✅ Control total de la ruta
-- ✅ Cambios en tiempo real (ideal para desarrollo)
-- ✅ Fácil acceso desde el host
-- ⚠️ Dependiente de la estructura del host
-- ⚠️ Pueden haber problemas de permisos
+- Control total de la ruta
+- Cambios en tiempo real (ideal para desarrollo)
+- Fácil acceso desde el host
+- ADVERTENCIA: Dependiente de la estructura del host
+- ADVERTENCIA: Pueden haber problemas de permisos
 
 ---
 
@@ -131,10 +131,10 @@ docker volume prune -f
 ```
 
 **Características:**
-- ⚠️ Nombre aleatorio generado por Docker
-- ⚠️ Se elimina con `docker rm -v` o `docker volume prune`
-- ⚠️ Difícil de reutilizar
-- ✅ Útil para datos verdaderamente temporales
+- ADVERTENCIA: Nombre aleatorio generado por Docker
+- ADVERTENCIA: Se elimina con `docker rm -v` o `docker volume prune`
+- ADVERTENCIA: Difícil de reutilizar
+- Útil para datos verdaderamente temporales
 
 ---
 

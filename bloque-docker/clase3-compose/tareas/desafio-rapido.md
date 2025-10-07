@@ -101,10 +101,10 @@ docker compose exec db psql -U curso -d coursedb -c "SELECT * FROM usuarios;"
 
 ## Criterios de Éxito
 
-- ✅ El archivo `init.sql` está montado en el contenedor
-- ✅ La tabla `usuarios` se creó automáticamente
-- ✅ Los 3 registros se insertaron correctamente
-- ✅ Puedes consultar los datos con `psql`
+- El archivo `init.sql` está montado en el contenedor
+- La tabla `usuarios` se creó automáticamente
+- Los 3 registros se insertaron correctamente
+- Puedes consultar los datos con `psql`
 
 ---
 

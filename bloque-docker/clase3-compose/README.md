@@ -10,7 +10,6 @@ En esta clase aprenderemos a orquestar aplicaciones multi-contenedor usando Dock
 - Crear y gestionar redes personalizadas para segmentar servicios
 - Implementar persistencia de datos con volúmenes
 - Configurar comunicación entre servicios usando DNS interno
-- Construir una aplicación full-stack con Node.js y MongoDB
 
 ---
 
@@ -58,8 +57,8 @@ Los volúmenes permiten persistir datos más allá del ciclo de vida de un conte
 Desde Docker Compose v2 (integrado en Docker Desktop), el comando es `docker compose` (sin guión):
 
 ```bash
-docker compose up -d    # ✅ Correcto (v2)
-docker-compose up -d    # ⚠️ Antiguo (v1, standalone)
+docker compose up -d    # Correcto (v2)
+docker-compose up -d    # ADVERTENCIA: Antiguo (v1, standalone)
 ```
 
 **Nombres de archivo válidos**:
@@ -80,12 +79,12 @@ docker compose -f produccion.yml up
 Desde Compose v2, el campo `version` en el archivo YAML es **opcional y ya no se recomienda**. Docker Compose usa automáticamente la última especificación disponible.
 
 ```yaml
-# ✅ Recomendado (sin version)
+# Recomendado (sin version)
 services:
   web:
     image: nginx
 
-# ⚠️ Antiguo (con version)
+# ADVERTENCIA: Antiguo (con version)
 version: '3.8'
 services:
   web:
@@ -114,7 +113,6 @@ Práctica guiada con aplicaciones completas usando Docker Compose:
 - [Lab 01: Docker Compose Básico](labs/01-compose-basico/)
 - [Lab 02: Redes (Networks)](labs/02-redes/)
 - [Lab 03: Volúmenes (Volumes)](labs/03-volumenes/)
-- [Lab 04: Node.js + MongoDB - Aplicación Completa](labs/04-nodejs-mongodb/)
 
 ---
 

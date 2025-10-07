@@ -181,12 +181,12 @@ volumes:
 ### Indentación
 
 ```yaml
-# ✅ CORRECTO: 2 espacios
+# CORRECTO: 2 espacios
 services:
   web:
     image: nginx
 
-# ❌ INCORRECTO: tabs o 4 espacios
+# INCORRECTO: tabs o 4 espacios
 services:
     web:              # 4 espacios (inconsistente)
 	image: nginx      # tab (error)
@@ -364,7 +364,7 @@ services:
 ### 1. Indentación incorrecta
 
 ```yaml
-# ❌ INCORRECTO
+# INCORRECTO
 services:
 web:
   image: nginx
@@ -375,7 +375,7 @@ web:
 ### 2. Mezclar tabs y espacios
 
 ```yaml
-# ❌ INCORRECTO
+# INCORRECTO
 services:
   web:
 	image: nginx    # tab usado aquí
@@ -386,11 +386,11 @@ services:
 ### 3. Olvidar comillas en puertos
 
 ```yaml
-# ⚠️ PUEDE CAUSAR PROBLEMAS
+# ADVERTENCIA: PUEDE CAUSAR PROBLEMAS
 ports:
   - 8080:80       # YAML interpreta como 8080 en base 60
 
-# ✅ CORRECTO
+# CORRECTO
 ports:
   - "8080:80"     # Siempre usar comillas
 ```
@@ -403,7 +403,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-# ❌ FALTA: Declarar el volumen
+# FALTA: Declarar el volumen
 ```
 
 **Corrección:**

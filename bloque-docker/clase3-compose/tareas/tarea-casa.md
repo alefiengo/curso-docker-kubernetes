@@ -1,362 +1,268 @@
-# Tarea para Casa - Clase 3
-
-**Fecha de entrega:** Antes de la próxima clase
-**Modalidad:** Individual
-**Entrega:** Repositorio personal en GitHub/GitLab + enlace en Moodle
-
----
+# Tarea 3 - Aplicación Multi-Contenedor con Docker Compose
 
 ## Objetivo
 
-Crear una aplicación multi-contenedor completa usando Docker Compose, aplicando los conceptos de redes, volúmenes y orquestación de servicios aprendidos en clase.
+Crear una aplicación multi-contenedor usando Docker Compose, aplicando los conceptos de redes, volúmenes y orquestación de servicios aprendidos en clase.
 
 ---
 
-## Requisitos de la Aplicación
+## Parte 1: Elegir el Stack de la Aplicación
 
-Debes crear una aplicación con **mínimo 3 servicios**:
+Debes crear una aplicación con **mínimo 2 servicios**:
 
-1. **Backend/API**: Aplicación en cualquier lenguaje (Node.js, Python, Go, Java, etc.)
-2. **Base de datos**: PostgreSQL, MySQL, MongoDB, etc.
-3. **Servicio adicional**: Puede ser:
-   - Cache (Redis, Memcached)
-   - Queue (RabbitMQ, Redis)
-   - GUI de base de datos (Adminer, pgAdmin, mongo-express)
-   - Proxy reverso (Nginx, Traefik)
+1. **Servicio Web**: Servidor web con contenido estático o dinámico
+   - Nginx con HTML estático
+   - Node.js simple con Express
+   - Python con Flask/FastAPI
+   - Otro servidor web que domines
+
+2. **Base de datos**: Elige una
+   - PostgreSQL
+   - MySQL
+   - MongoDB
+   - Redis
+
+**Nota:** La aplicación puede ser muy simple (incluso un HTML estático + base de datos). Lo importante es demostrar el uso correcto de Docker Compose, redes y volúmenes.
+
+**Opcional (para destacar):**
+- Agregar GUI de BD (Adminer, pgAdmin, mongo-express)
+- API REST básica que se conecte a la BD
 
 ---
 
-## Especificaciones Técnicas
+## Parte 2: Configurar Docker Compose
 
 ### 1. Docker Compose
 
 Tu `docker-compose.yml` debe incluir:
 
-- ✅ Al menos 3 servicios
-- ✅ Al menos 1 servicio con `build` (Dockerfile personalizado)
-- ✅ Al menos 1 servicio con imagen oficial de Docker Hub
-- ✅ Variables de entorno configuradas
-- ✅ Mapeo de puertos apropiado
-- ✅ `depends_on` para control de inicio
+- Al menos 2 servicios (web + db)
+- Al menos 1 servicio con imagen oficial (puede ser ambos)
+- Variables de entorno (si son necesarias para tu app)
+- Mapeo de puertos para acceder desde el navegador
+- `depends_on` (opcional pero recomendado)
 
 ### 2. Redes
 
-- ✅ Crear al menos 1 red custom
-- ✅ Segmentar servicios en diferentes redes (opcional pero recomendado)
-- ✅ Documentar la arquitectura de red
+- Crear 1 red custom (ejemplo: `app-network`)
+- Conectar ambos servicios a la red
+- Demostrar que los servicios se comunican (puede ser con `docker exec` y `ping`)
 
 ### 3. Volúmenes
 
-- ✅ Al menos 1 **named volume** para persistencia de datos
-- ✅ Al menos 1 **bind mount** para desarrollo o configuración
-- ✅ Probar que los datos persisten después de `docker compose down`
+- 1 **named volume** para persistencia de la base de datos
+- Probar que los datos persisten después de `docker compose down` (sin `-v`)
 
-### 4. Funcionalidad
+### 4. Funcionalidad Mínima
 
 La aplicación debe:
 
-- ✅ Ser accesible desde el navegador o API client (Postman/curl)
-- ✅ Conectarse exitosamente a la base de datos
-- ✅ Realizar al menos operaciones CRUD básicas o similar
-- ✅ Funcionar correctamente después de `docker compose up`
+- Ser accesible desde el navegador (http://localhost:XXXX)
+- Los 2 servicios deben estar corriendo (`docker compose ps` muestra ambos healthy/running)
+- Funcionar correctamente después de `docker compose up -d`
+
+**No es necesario** que la aplicación web se conecte realmente a la base de datos (eso es opcional). Lo importante es que ambos servicios corran y estén conectados a la red.
 
 ---
 
-## Estructura del Repositorio
+## Parte 3: Estructura del Repositorio
 
-Tu repositorio debe tener la siguiente estructura:
+Estructura **mínima**:
 
 ```
 tu-repo-clase3/
-├── README.md                    # Documentación completa
-├── docker-compose.yml           # Orquestación de servicios
-├── .env.example                 # Ejemplo de variables (sin valores reales)
-├── .gitignore                   # Ignorar node_modules, .env, etc.
-├── app/                         # Tu aplicación
-│   ├── Dockerfile
-│   ├── código fuente
-│   └── ...
-├── config/                      # Configuraciones (nginx.conf, etc.)
-└── screenshots/                 # Capturas de pantalla (ver más abajo)
+├── README.md                    # Documentación
+├── docker-compose.yml           # Orquestación
+├── .gitignore                   # Opcional
+├── html/                        # Tu contenido web (si usas nginx)
+│   └── index.html
+└── screenshots/                 # Capturas de pantalla
 ```
+
+**Nota:** Si usas solo imágenes oficiales (nginx + postgres, por ejemplo), no necesitas Dockerfile.
 
 ---
 
-## Documentación Requerida (README.md)
+## Parte 4: Documentar en README.md
 
-Tu README.md debe incluir las siguientes secciones:
+Tu README.md debe incluir:
 
-### 1. Título y Descripción
+### 1. Encabezado
 
 ```markdown
 # Nombre de tu Aplicación
 
-Breve descripción de qué hace tu aplicación y qué tecnologías usa.
-
 **Curso:** Docker & Kubernetes - Clase 3
 **Estudiante:** Tu Nombre
-**Fecha:** DD/MM/YYYY
+
+Breve descripción (1-2 líneas) de qué hace.
 ```
 
 ### 2. Stack Tecnológico
 
-Lista las tecnologías usadas:
-
 ```markdown
-## Stack Tecnológico
+## Stack
 
-- **Backend:** Node.js + Express / Python + FastAPI / etc.
-- **Base de datos:** PostgreSQL 15 / MongoDB 7 / etc.
-- **Cache/Queue:** Redis / RabbitMQ / etc.
-- **Otros:** Nginx, Adminer, etc.
+- **App:** Node.js / Python / Go
+- **Base de datos:** MongoDB / PostgreSQL / MySQL
 ```
 
-### 3. Arquitectura
-
-Diagrama o descripción de la arquitectura:
+### 3. Cómo Ejecutar
 
 ```markdown
-## Arquitectura
+## Ejecución
 
-Descripción de cómo se comunican los servicios, qué redes usan, etc.
-
-Servicios:
-- `app`: Puerto 3000, conectado a db y redis
-- `db`: PostgreSQL, solo accesible desde app
-- `redis`: Cache, solo accesible desde app
-```
-
-Puedes incluir un diagrama ASCII o imagen.
-
-### 4. Requisitos Previos
-
-```markdown
-## Requisitos
-
-- Docker Desktop o Docker Engine
-- Docker Compose
-- Git
-```
-
-### 5. Instalación y Uso
-
-Instrucciones paso a paso:
-
-```markdown
-## Instalación
-
-1. Clonar el repositorio:
+1. Clonar:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repo-clase3.git
-   cd tu-repo-clase3
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo
    ```
 
-2. Copiar variables de entorno:
-   ```bash
-   cp .env.example .env
-   ```
-
-3. Levantar servicios:
+2. Levantar servicios:
    ```bash
    docker compose up -d
    ```
 
-4. Acceder a la aplicación:
+3. Acceder:
    - API: http://localhost:3000
-   - GUI DB: http://localhost:8080
 ```
 
-### 6. Endpoints / Funcionalidad
-
-Documenta cómo usar tu aplicación:
+### 4. Cómo Probar
 
 ```markdown
-## Endpoints
+## Verificación
 
-- `GET /` - Información de la API
-- `GET /api/items` - Listar items
-- `POST /api/items` - Crear item
-- etc.
+1. Servicios corriendo:
+   ```bash
+   docker compose ps
+   ```
 
-### Ejemplo de uso:
+2. Acceder a la web: http://localhost:XXXX
 
-```bash
-curl http://localhost:3000/api/items
+3. Verificar volumen persiste:
+   ```bash
+   docker compose down
+   docker compose up -d
+   docker volume ls  # debe seguir existiendo
+   ```
 ```
-```
 
-### 7. Capturas de Pantalla
-
-Incluir al menos 3 screenshots:
+### 5. Capturas de Pantalla
 
 ```markdown
-## Capturas de Pantalla
+## Screenshots
 
-### 1. Servicios corriendo
-![docker compose ps](screenshots/01-services.png)
+### Servicios corriendo
+![compose ps](screenshots/services.png)
 
-### 2. Aplicación funcionando
-![App running](screenshots/02-app.png)
-
-### 3. Base de datos con datos
-![Database](screenshots/03-database.png)
+### API funcionando
+![API](screenshots/api.png)
 ```
 
-### 8. Conceptos Aplicados
+### 6. Conceptos Aplicados
 
 ```markdown
-## Conceptos Docker Aplicados
+## Conceptos Docker
 
-- **Docker Compose**: Orquestación de 3 servicios
-- **Redes**: Red custom `app-network` para comunicación
-- **Volúmenes**: `postgres-data` para persistencia
-- **Variables de entorno**: Configuración de conexiones
-- **Multi-stage build**: Dockerfile optimizado (si aplica)
+- Docker Compose con 2 servicios
+- Red custom: `app-network`
+- Volumen: `db-data` (persistencia)
+- Variables de entorno
 ```
-
-### 9. Problemas y Soluciones (Opcional)
-
-Documenta problemas que encontraste y cómo los resolviste.
 
 ---
 
-## Capturas de Pantalla Requeridas
+## Parte 5: Capturas de Pantalla
 
-Debes incluir al menos estas 3 capturas:
+Mínimo **3 capturas**:
 
-1. **Servicios corriendo**: `docker compose ps`
-2. **Aplicación funcionando**: Tu app en el navegador o respuesta de API
-3. **Datos en la base de datos**: Usando GUI o cliente de BD
+1. **Servicios corriendo**: `docker compose ps` mostrando ambos servicios
+2. **Aplicación web funcionando**: Navegador mostrando http://localhost:XXXX
+3. **Volumen persistente**: `docker volume ls` mostrando el volumen creado
 
-**Capturas adicionales sugeridas**:
-- `docker volume ls`
-- `docker network ls`
-- `docker compose logs`
-- Postman/curl haciendo requests
+**Opcional (para destacar)**:
+- `docker network ls` mostrando la red custom
+- `docker exec` haciendo ping entre servicios
 
 ---
 
-## Criterios de Evaluación
+## Parte 6: Entrega y Evaluación
+
+### Criterios de Evaluación
 
 | Criterio | Puntos |
 |----------|--------|
-| **Funcionalidad** (aplicación funciona correctamente) | 25% |
-| **Docker Compose** (mínimo 3 servicios, bien configurados) | 20% |
-| **Redes** (al menos 1 red custom) | 15% |
-| **Volúmenes** (persistencia correcta) | 15% |
-| **Documentación** (README completo y claro) | 15% |
-| **Capturas de pantalla** (evidencia del funcionamiento) | 10% |
+| **Docker Compose** (2 servicios bien configurados) | 30% |
+| **Redes** (red custom, servicios conectados) | 20% |
+| **Volúmenes** (persistencia correcta) | 20% |
+| **Funcionalidad** (servicios corriendo, accesible) | 15% |
+| **Documentación** (README claro con instrucciones) | 10% |
+| **Screenshots** (3 capturas mínimo) | 5% |
 
 **Total:** 100%
 
----
+### Restricciones
 
-## Restricciones
+- No copiar exactamente el lab (debe ser diferente)
+- No subir `node_modules` o archivos binarios
+- Repositorio público
+- Debe funcionar con `git clone` + `docker compose up -d`
 
-- ❌ No usar ejemplos exactos de los labs de clase (puedes inspirarte pero debe ser diferente)
-- ❌ No incluir credenciales reales en el repositorio (usar `.env.example`)
-- ❌ No subir `node_modules`, archivos binarios, o datos de volúmenes
-- ✅ El repositorio debe ser público
-- ✅ Debe funcionar con solo `git clone` + `docker compose up`
+### Instrucciones de Entrega
 
----
+1. Crear repositorio público (GitHub/GitLab)
+2. Subir código con commits claros
+3. Verificar que funcione desde cero
+4. Entregar en Moodle: enlace + descripción breve
 
-## Entrega
-
-1. **Crear repositorio público** en GitHub o GitLab
-2. **Subir tu código** con commits descriptivos
-3. **Verificar** que funcione clonando en otro directorio
-4. **Entregar en Moodle**:
-   - Enlace al repositorio
-   - Breve descripción (2-3 líneas) de tu aplicación
-
-**Formato del enlace en Moodle**:
+**Formato en Moodle**:
 ```
 Repositorio: https://github.com/tu-usuario/tu-repo-clase3
-Descripción: API REST de gestión de tareas con Node.js, PostgreSQL y Redis como cache.
+Descripción: Nginx + PostgreSQL con Docker Compose
 ```
 
----
-
-## Ideas de Proyectos
-
-Si no sabes qué hacer, aquí hay algunas ideas:
-
-### Idea 1: Blog Simple
-- **Backend**: Node.js/Express
-- **BD**: PostgreSQL
-- **Adicional**: Adminer (GUI)
-- **Funcionalidad**: CRUD de posts
-
-### Idea 2: API de Productos
-- **Backend**: Python/FastAPI
-- **BD**: MongoDB
-- **Adicional**: mongo-express
-- **Funcionalidad**: Catálogo de productos
-
-### Idea 3: Sistema de Usuarios
-- **Backend**: Node.js/Express
-- **BD**: PostgreSQL
-- **Adicional**: Redis (cache de sesiones)
-- **Funcionalidad**: Registro, login, perfil
-
-### Idea 4: Todo List
-- **Backend**: Go/Gin
-- **BD**: MySQL
-- **Adicional**: phpMyAdmin
-- **Funcionalidad**: CRUD de tareas
-
----
-
-## Recursos de Ayuda
-
-- [Ejemplos de los labs de clase](../labs/)
-- [Cheatsheet de Clase 3](../cheatsheet.md)
-- [Docker Compose Documentation](https://docs.docker.com/compose/)
-- [Guía de Entrega de Tareas](../../ENTREGA_TAREAS.md)
-
----
-
-## Preguntas Frecuentes
-
-### ¿Puedo usar un proyecto existente?
-
-Sí, pero debe estar completamente dockerizado con Compose y cumplir todos los requisitos.
-
-### ¿Puedo trabajar en grupo?
-
-No, esta tarea es individual. Cada estudiante debe tener su propio repositorio.
-
-### ¿Qué hago si no sé programar en ningún lenguaje?
-
-Puedes usar los ejemplos de clase como base y modificarlos. Lo importante es demostrar que entiendes Docker Compose, redes y volúmenes.
-
-### ¿Debo hacer el frontend?
-
-No es obligatorio. Una API REST documentada es suficiente.
-
-### ¿Puedo agregar más de 3 servicios?
-
-Sí, puedes agregar los que quieras. Mientras más completo, mejor.
-
----
-
-## Checklist Final
+### Checklist Final
 
 Antes de entregar, verifica:
 
-- [ ] El repositorio es público
-- [ ] README.md está completo con todas las secciones
-- [ ] `docker-compose.yml` tiene mínimo 3 servicios
-- [ ] Hay al menos 1 red custom
-- [ ] Hay al menos 1 named volume
-- [ ] `.gitignore` excluye archivos innecesarios
-- [ ] `.env.example` está incluido (sin valores reales)
-- [ ] Screenshots están en el repositorio
-- [ ] La aplicación funciona con `docker compose up`
-- [ ] Commits tienen mensajes descriptivos
-- [ ] Enlace entregado en Moodle
+- Repositorio público
+- README.md con instrucciones claras
+- `docker-compose.yml` con 2+ servicios
+- Red custom declarada y usada
+- Named volume declarado y usado
+- 3 screenshots mínimo (compose ps, web, volume ls)
+- Funciona con `docker compose up -d`
+- Enlace entregado en Moodle
 
 ---
 
-¡Éxito con tu tarea!
+## Ayuda: Ideas de Proyectos (Muy Simples)
+
+### Opción 1: Nginx + PostgreSQL (Más Simple)
+- Nginx con HTML estático
+- PostgreSQL con volumen
+- **Inspirado en Lab 01 + Lab 03**
+- No requiere programación
+
+### Opción 2: Nginx + MySQL + Adminer
+- Nginx con página de bienvenida
+- MySQL con volumen
+- Adminer (GUI para MySQL)
+- 3 servicios, muy visual
+
+### Opción 3: Node.js Simple + MongoDB
+- Node.js con Express (solo "Hello World" + info de conexión)
+- MongoDB con volumen
+- Requiere algo de JavaScript básico
+
+**Consejo:** La opción 1 es perfecta si quieres algo rápido. Enfócate en Docker Compose, redes y volúmenes, no en programar una aplicación compleja.
+
+---
+
+## Recursos Adicionales
+
+- [Lab 01 - Compose Básico](../labs/01-compose-basico/)
+- [Lab 02 - Redes](../labs/02-redes/)
+- [Lab 03 - Volúmenes](../labs/03-volumenes/)
+- [Cheatsheet Clase 3](../cheatsheet.md)
+- [Docker Compose Docs](https://docs.docker.com/compose/)

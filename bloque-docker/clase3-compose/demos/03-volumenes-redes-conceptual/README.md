@@ -8,7 +8,7 @@
 
 **"¿Puedo agregar volúmenes y redes en un Dockerfile?"**
 
-**Respuesta corta:** ⚠️ **Solo parcialmente**
+**Respuesta corta:** ADVERTENCIA: **Solo parcialmente**
 
 ---
 
@@ -55,11 +55,11 @@ VOLUME /data
 ```
 
 **Lo que hace `VOLUME` en Dockerfile:**
-- ✅ Marca un directorio como punto de montaje
-- ✅ Docker creará un volumen anónimo si no especificas uno
-- ❌ NO puedes especificar un nombre
-- ❌ NO puedes especificar una ruta del host
-- ❌ NO puedes usar bind mounts
+- Marca un directorio como punto de montaje
+- Docker creará un volumen anónimo si no especificas uno
+- NO puedes especificar un nombre
+- NO puedes especificar una ruta del host
+- NO puedes usar bind mounts
 
 ### En Contenedor (Runtime)
 
@@ -87,8 +87,8 @@ docker run nginx
 ```dockerfile
 FROM nginx:alpine
 
-# ❌ NO existe instrucción NETWORK en Dockerfile
-# ❌ NO puedes especificar a qué red se conectará
+# NO existe instrucción NETWORK en Dockerfile
+# NO puedes especificar a qué red se conectará
 
 # Solo puedes EXPONER puertos (documentación)
 EXPOSE 80
@@ -161,12 +161,12 @@ docker inspect test2 --format '{{ .Mounts }}'
 
 | Aspecto | Dockerfile (Imagen) | docker run / Compose (Contenedor) |
 |---------|---------------------|-----------------------------------|
-| **Volúmenes nombrados** | ❌ No soportado | ✅ `-v nombre:/path` |
-| **Bind mounts** | ❌ No soportado | ✅ `-v /host:/path` |
-| **VOLUME** | ⚠️ Solo anonymous | ✅ Puede sobreescribirse |
-| **Redes** | ❌ No soportado | ✅ `--network` |
-| **Publicar puertos** | ❌ Solo `EXPOSE` (doc) | ✅ `-p host:container` |
-| **Variables de entorno** | ✅ `ENV` (default) | ✅ `-e` (override) |
+| **Volúmenes nombrados** | No soportado | `-v nombre:/path` |
+| **Bind mounts** | No soportado | `-v /host:/path` |
+| **VOLUME** | ADVERTENCIA: Solo anonymous | Puede sobreescribirse |
+| **Redes** | No soportado | `--network` |
+| **Publicar puertos** | Solo `EXPOSE` (doc) | `-p host:container` |
+| **Variables de entorno** | `ENV` (default) | `-e` (override) |
 
 ---
 

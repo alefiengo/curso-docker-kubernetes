@@ -25,7 +25,7 @@ Docker tiene un servidor DNS integrado. Los contenedores pueden comunicarse usan
 
 ```bash
 # Dentro del contenedor "frontend"
-ping backend  # ✅ Funciona si están en la misma red
+ping backend  # Funciona si están en la misma red
 curl http://backend:80
 ```
 
@@ -184,7 +184,7 @@ Verás los contenedores conectados a esa red.
 
 ## Paso 4: Probar Comunicación entre Servicios
 
-### 1. Desde frontend → backend (✅ Debe funcionar)
+### 1. Desde frontend → backend (Debe funcionar)
 
 ```bash
 docker compose exec frontend ping -c 3 backend
@@ -198,7 +198,7 @@ PING backend (172.20.0.3): 56 data bytes
 64 bytes from 172.20.0.3: seq=2 ttl=64 time=0.095 ms
 ```
 
-### 2. Desde backend → database (✅ Debe funcionar)
+### 2. Desde backend → database (Debe funcionar)
 
 ```bash
 docker compose exec backend ping -c 3 database
@@ -206,7 +206,7 @@ docker compose exec backend ping -c 3 database
 
 **Salida esperada:** Similar al anterior.
 
-### 3. Desde frontend → database (❌ NO debe funcionar)
+### 3. Desde frontend → database (NO debe funcionar)
 
 ```bash
 docker compose exec frontend ping -c 3 database
