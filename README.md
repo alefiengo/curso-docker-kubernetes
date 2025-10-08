@@ -68,10 +68,10 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
   - Redes personalizadas y segmentación de servicios
   - Volúmenes para persistencia de datos
 
-- **Clase 4: Microservicios, Cache y Gateway** (próximamente)
-  - Aplicación multi-contenedor con cache
+- **[Clase 4: Microservicios, Cache y Gateway](bloque-docker/clase4-microservicios/)**
+  - Aplicación multi-contenedor con cache (Redis)
   - API Gateway con Kong
-  - Comunicación entre servicios
+  - Comunicación entre servicios y frontend
 
 - **Clase 5: Seguridad y Optimización** (próximamente)
   - Escaneo de vulnerabilidades con Trivy

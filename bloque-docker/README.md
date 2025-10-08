@@ -50,6 +50,16 @@ Al finalizar este bloque, serás capaz de:
 
 **[Cheat Sheet - Clase 3](clase3-compose/cheatsheet.md)**
 
+### [Clase 4: Microservicios, Cache y Gateway](clase4-microservicios/)
+
+- Aplicaciones multi-contenedor con cache (Redis)
+- API Gateway con Kong
+- Frontend con Angular y nginx
+- Comunicación entre servicios
+- Patrones de microservicios
+
+**[Cheat Sheet - Clase 4](clase4-microservicios/cheatsheet.md)**
+
 ---
 
 ## Recursos adicionales
