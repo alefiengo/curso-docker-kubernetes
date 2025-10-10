@@ -73,10 +73,10 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
   - API Gateway con Kong
   - Comunicación entre servicios y frontend
 
-- **Clase 5: Seguridad y Optimización** (próximamente)
+- **[Clase 5: Seguridad y Optimización](bloque-docker/clase5-seguridad/)**
   - Escaneo de vulnerabilidades con Trivy
-  - Buenas prácticas de seguridad
-  - Optimización de imágenes
+  - Técnicas de optimización de imágenes
+  - Multi-stage builds avanzados y Alpine
 
 ### Bloque 2: Kubernetes (Clases 6-8)
 

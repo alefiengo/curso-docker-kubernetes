@@ -60,6 +60,17 @@ Al finalizar este bloque, serás capaz de:
 
 **[Cheat Sheet - Clase 4](clase4-microservicios/cheatsheet.md)**
 
+### [Clase 5: Seguridad y Optimización](clase5-seguridad/)
+
+- Escaneo de vulnerabilidades con Trivy
+- Técnicas de optimización de imágenes
+- Multi-stage builds avanzados
+- Imagen base Alpine
+- Buenas prácticas de seguridad
+- Health checks y labels de metadata
+
+**[Cheat Sheet - Clase 5](clase5-seguridad/cheatsheet.md)**
+
 ---
 
 ## Recursos adicionales
