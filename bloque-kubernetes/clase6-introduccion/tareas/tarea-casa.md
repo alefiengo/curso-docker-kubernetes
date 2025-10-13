@@ -1,180 +1,96 @@
-# Tarea para Casa - Clase 6
-
-**Fecha de entrega:** Antes de la Clase 7
-**Modalidad:** Individual
-**Entrega:** Repositorio GitHub/GitLab personal + Capturas de pantalla
-
----
+# Tarea 6 - Deployment y Service en Kubernetes
 
 ## Objetivo
 
-Consolidar los conocimientos de Pods, Deployments y Services creando una aplicación multi-tier (frontend + backend + base de datos) completamente funcional en Kubernetes.
+Practicar la creación de Deployments y Services desplegando una aplicación web en Kubernetes, aplicando los conceptos de réplicas, labels, selectors y exposición de servicios aprendidos en clase.
 
 ---
 
-## Requisitos Técnicos
+## Parte 1: Elegir la Aplicación
 
-Debes crear una aplicación con 3 componentes:
+Debes desplegar **una aplicación web** con las siguientes características:
 
-### 1. Base de Datos (MongoDB)
-- **Deployment:** `mongodb-deployment`
-- **Imagen:** `mongo:7-jammy`
-- **Réplicas:** 1
-- **Puerto:** 27017
-- **Service:** ClusterIP (interno)
+**Opción 1: Nginx (Más Simple)**
+- Imagen: `nginx:alpine`
+- Puedes usar HTML personalizado (opcional)
+- No requiere programación
 
-### 2. Backend (API REST)
-- **Deployment:** `api-deployment`
-- **Imagen:** `alefiengo/simple-api:latest` (o crear tu propia)
-- **Réplicas:** 2
-- **Puerto:** 3000
-- **Service:** ClusterIP (interno)
-- **Debe conectarse a MongoDB**
+**Opción 2: Aplicación Web Custom**
+- Node.js, Python, Go, o tu lenguaje preferido
+- Debe exponer un puerto HTTP
+- Requiere crear tu propio Dockerfile
 
-### 3. Frontend (Nginx)
-- **Deployment:** `frontend-deployment`
-- **Imagen:** `nginx:alpine`
-- **Réplicas:** 2
-- **Puerto:** 80
-- **Service:** NodePort (acceso externo)
+**Nota:** La opción 1 es perfecta si quieres enfocarte en Kubernetes. Lo importante es demostrar el uso correcto de Deployments y Services, no programar una aplicación compleja.
 
 ---
 
-## Instrucciones Paso a Paso
+## Parte 2: Requisitos del Deployment
 
-### Parte 1: Estructura del Proyecto
+Tu `deployment.yaml` debe incluir:
 
-Crea la siguiente estructura en tu repositorio:
+- **Nombre:** `webapp-deployment`
+- **Réplicas:** 3 (mínimo)
+- **Labels:** `app: webapp`, `env: homework`
+- **Container:**
+  - Nombre: `webapp`
+  - Puerto: 80 (o el puerto que uses)
+  - Imagen: La que elijas
+
+---
+
+## Parte 3: Requisitos del Service
+
+Tu `service.yaml` debe incluir:
+
+- **Tipo:** NodePort
+- **Selector:** `app: webapp`
+- **Puerto del service:** 80
+- **NodePort:** 30200
+- La aplicación debe ser accesible desde el navegador
+
+---
+
+## Parte 4: Estructura del Repositorio
+
+Estructura **mínima**:
 
 ```
-tarea-clase6/
-├── README.md
-├── mongodb/
-│   ├── deployment.yaml
-│   └── service.yaml
-├── api/
-│   ├── deployment.yaml
-│   └── service.yaml
-└── frontend/
-    ├── deployment.yaml
-    └── service.yaml
+tu-repo-clase6/
+├── README.md                    # Documentación
+├── deployment.yaml              # Deployment de Kubernetes
+├── service.yaml                 # Service de Kubernetes
+├── html/                        # Opcional: contenido web custom
+│   └── index.html
+└── screenshots/                 # Capturas de pantalla
 ```
 
-### Parte 2: Crear Manifests YAML
+**Nota:** Si usas imagen oficial de nginx sin personalizar, no necesitas otros archivos.
 
-#### 1. MongoDB
+---
 
-**mongodb/deployment.yaml:**
+## Parte 5: Desplegar y Probar
+
+### Paso 1: Crear el Deployment
+
+Crea `deployment.yaml`:
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb-deployment
+  name: webapp-deployment
   labels:
-    app: mongodb
-    tier: database
+    app: webapp
+    env: homework
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: mongodb
+      app: webapp
   template:
     metadata:
       labels:
-        app: mongodb
-        tier: database
-    spec:
-      containers:
-      - name: mongodb
-        image: mongo:7-jammy
-        ports:
-        - containerPort: 27017
-          name: mongo-port
-```
-
-**mongodb/service.yaml:**
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongodb-service
-spec:
-  type: ClusterIP
-  selector:
-    app: mongodb
-  ports:
-  - port: 27017
-    targetPort: 27017
-```
-
-#### 2. API Backend
-
-**api/deployment.yaml:**
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: api-deployment
-  labels:
-    app: api
-    tier: backend
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: api
-  template:
-    metadata:
-      labels:
-        app: api
-        tier: backend
-    spec:
-      containers:
-      - name: api
-        image: alefiengo/simple-api:latest
-        ports:
-        - containerPort: 3000
-        env:
-        - name: MONGO_URL
-          value: "mongodb://mongodb-service:27017/mydb"
-```
-
-**api/service.yaml:**
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: api-service
-spec:
-  type: ClusterIP
-  selector:
-    app: api
-  ports:
-  - port: 3000
-    targetPort: 3000
-```
-
-#### 3. Frontend
-
-**frontend/deployment.yaml:**
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: frontend-deployment
-  labels:
-    app: frontend
-    tier: presentation
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: frontend
-  template:
-    metadata:
-      labels:
-        app: frontend
-        tier: presentation
+        app: webapp
+        env: homework
     spec:
       containers:
       - name: nginx
@@ -183,241 +99,339 @@ spec:
         - containerPort: 80
 ```
 
-**frontend/service.yaml:**
+### Paso 2: Crear el Service
+
+Crea `service.yaml`:
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: webapp-service
+  labels:
+    app: webapp
 spec:
   type: NodePort
   selector:
-    app: frontend
+    app: webapp
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 30100
+    nodePort: 30200
 ```
 
-### Parte 3: Desplegar la Aplicación
+### Paso 3: Desplegar en Kubernetes
 
 ```bash
-# 1. Crear namespace para la tarea (opcional pero recomendado)
-kubectl create namespace tarea-clase6
+# 1. Aplicar el deployment
+kubectl apply -f deployment.yaml
 
-# 2. Aplicar manifests (en orden)
-kubectl apply -f mongodb/ -n tarea-clase6
-kubectl apply -f api/ -n tarea-clase6
-kubectl apply -f frontend/ -n tarea-clase6
+# 2. Aplicar el service
+kubectl apply -f service.yaml
 
-# 3. Verificar deployments
-kubectl get deployments -n tarea-clase6
+# 3. Verificar que todo esté corriendo
+kubectl get deployments
+kubectl get pods
+kubectl get services
 
-# 4. Verificar pods
-kubectl get pods -n tarea-clase6
-
-# 5. Verificar services
-kubectl get services -n tarea-clase6
-
-# 6. Acceder al frontend
-minikube service frontend-service -n tarea-clase6
+# 4. Acceder a la aplicación
+minikube service webapp-service --url
+# O abrir en navegador:
+minikube service webapp-service
 ```
 
-### Parte 4: Verificaciones
+### Paso 4: Experimentar con Kubernetes
 
-Ejecuta y captura los resultados de estos comandos:
+Ejecuta estos comandos y captura los resultados:
 
 ```bash
 # 1. Ver todos los recursos
-kubectl get all -n tarea-clase6
+kubectl get all
 
-# 2. Describir un pod del backend
-kubectl describe pod -l app=api -n tarea-clase6
+# 2. Ver detalles del deployment
+kubectl describe deployment webapp-deployment
 
-# 3. Ver logs del backend
-kubectl logs -l app=api -n tarea-clase6
+# 3. Ver logs de uno de los pods
+kubectl logs <nombre-del-pod>
 
-# 4. Probar conectividad interna
-kubectl run test-pod --image=alpine --rm -it -n tarea-clase6 -- sh
-# Dentro del pod:
-apk add curl
-curl http://api-service:3000
-exit
+# 4. Escalar a 5 réplicas
+kubectl scale deployment webapp-deployment --replicas=5
+kubectl get pods
 
-# 5. Ver endpoints de services
-kubectl get endpoints -n tarea-clase6
+# 5. Eliminar un pod y observar auto-healing
+kubectl delete pod <nombre-de-un-pod>
+kubectl get pods -w
 ```
 
 ---
 
-## Entregables
+## Parte 6: Documentar en README.md
 
-### 1. Repositorio GitHub/GitLab
+Tu README.md debe incluir:
 
-Debe contener:
-- [ ] Todos los archivos YAML
-- [ ] README.md con:
-  - Descripción del proyecto
-  - Instrucciones de despliegue
-  - Comandos de verificación
-  - Capturas de pantalla
-
-### 2. Capturas de Pantalla
-
-Incluir en el README:
-1. `kubectl get all -n tarea-clase6`
-2. `kubectl get pods -n tarea-clase6 -o wide`
-3. `kubectl describe service frontend-service -n tarea-clase6`
-4. Navegador accediendo al frontend via NodePort
-5. Logs del backend mostrando conexión a MongoDB
-
-### 3. Documentación en README.md
-
-Ejemplo de estructura:
+### 1. Encabezado
 
 ```markdown
-# Tarea Clase 6 - Aplicación Multi-Tier en Kubernetes
+# Nombre de tu Aplicación
 
-## Descripción
+**Curso:** Docker & Kubernetes - Clase 6
+**Estudiante:** Tu Nombre
 
-Aplicación de 3 capas desplegada en Kubernetes con minikube:
-- Frontend: Nginx
-- Backend: API REST
-- Base de datos: MongoDB
-
-## Arquitectura
-
-[Diagrama o descripción]
-
-## Instalación
-
-```bash
-kubectl apply -f mongodb/
-kubectl apply -f api/
-kubectl apply -f frontend/
+Breve descripción (1-2 líneas) de qué hace.
 ```
 
+### 2. Tecnología
+
+```markdown
+## Stack
+
+- **Aplicación:** Nginx / Node.js / Python / etc.
+- **Kubernetes:** minikube
+- **Réplicas:** 3
+```
+
+### 3. Cómo Ejecutar
+
+```markdown
+## Ejecución
+
+1. Clonar:
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo
+   ```
+
+2. Desplegar:
+   ```bash
+   kubectl apply -f deployment.yaml
+   kubectl apply -f service.yaml
+   ```
+
+3. Acceder:
+   - URL: http://<MINIKUBE-IP>:30200
+   - O usar: `minikube service webapp-service`
+```
+
+### 4. Cómo Probar
+
+```markdown
 ## Verificación
 
-[Comandos y capturas]
+1. Ver recursos:
+   ```bash
+   kubectl get all
+   ```
 
-## Problemas Encontrados
+2. Acceder a la web: http://<IP>:30200
 
-[Descripción de problemas y cómo los resolviste]
+3. Escalar:
+   ```bash
+   kubectl scale deployment webapp-deployment --replicas=5
+   kubectl get pods
+   ```
+```
 
-## Aprendizajes
+### 5. Capturas de Pantalla
 
-[Qué aprendiste en esta tarea]
+```markdown
+## Screenshots
+
+### Recursos desplegados
+![kubectl get all](screenshots/resources.png)
+
+### Aplicación funcionando
+![webapp](screenshots/webapp.png)
+
+### Escalado a 5 réplicas
+![scaling](screenshots/scaling.png)
+```
+
+### 6. Conceptos Aplicados
+
+```markdown
+## Conceptos Kubernetes
+
+- Deployment con 3 réplicas
+- Service tipo NodePort
+- Labels y selectors
+- Auto-healing
+- Escalado horizontal
 ```
 
 ---
 
-## Criterios de Evaluación
+## Parte 7: Capturas de Pantalla
+
+Mínimo **4 capturas**:
+
+1. **Recursos desplegados:** `kubectl get all` mostrando deployment, pods y service
+2. **Pods detallados:** `kubectl get pods -o wide` con las 3 réplicas running
+3. **Aplicación funcionando:** Navegador accediendo a http://IP:30200
+4. **Escalado:** `kubectl get pods` después de escalar a 5 réplicas
+
+**Opcional (para destacar):**
+- `kubectl describe deployment webapp-deployment`
+- Auto-healing después de eliminar un pod
+- Logs de uno de los pods
+
+---
+
+## Parte 8: Entrega y Evaluación
+
+### Criterios de Evaluación
 
 | Criterio | Puntos |
 |----------|--------|
-| Manifests YAML correctos y funcionales | 30% |
-| Aplicación desplegada correctamente | 25% |
-| Verificaciones y comandos documentados | 20% |
-| README completo con capturas | 15% |
-| Limpieza de código y organización | 10% |
+| **Deployment** (YAML correcto, 3 réplicas, labels) | 30% |
+| **Service** (YAML correcto, NodePort, accesible) | 25% |
+| **Funcionalidad** (aplicación corriendo, accesible) | 20% |
+| **Documentación** (README claro con instrucciones) | 15% |
+| **Screenshots** (4 capturas mínimo) | 10% |
 
-**Total:** 100 puntos
+**Total:** 100%
+
+### Restricciones
+
+- No copiar exactamente el lab o la demo (debe ser tu propia implementación)
+- Repositorio público o dar acceso al instructor
+- Debe funcionar con `git clone` + `kubectl apply`
+
+### Instrucciones de Entrega
+
+1. Crear repositorio público (GitHub/GitLab)
+2. Subir código con commits claros
+3. Verificar que funcione desde cero
+4. Entregar en Moodle: enlace + descripción breve
+
+**Formato en Moodle:**
+```
+Repositorio: https://github.com/tu-usuario/tu-repo-clase6
+Descripción: Deployment de Nginx con 3 réplicas y Service NodePort
+```
+
+### Checklist Final
+
+Antes de entregar, verifica:
+
+- [ ] Repositorio público o acceso concedido
+- [ ] README.md con instrucciones claras
+- [ ] `deployment.yaml` con 3 réplicas
+- [ ] `service.yaml` tipo NodePort en puerto 30200
+- [ ] Labels correctos (`app: webapp`, `env: homework`)
+- [ ] 4 screenshots mínimo
+- [ ] Funciona con `kubectl apply -f deployment.yaml` y `kubectl apply -f service.yaml`
+- [ ] Aplicación accesible desde navegador
+- [ ] Enlace entregado en Moodle
 
 ---
 
 ## Desafíos Opcionales (Puntos Extra)
 
-### Desafío 1: Scaling Automático (10 puntos)
+### Bonus 1: Labels adicionales (5 puntos)
 
-Escala el backend a 4 réplicas y documenta:
-```bash
-kubectl scale deployment api-deployment --replicas=4 -n tarea-clase6
-```
-
-### Desafío 2: Rolling Update (10 puntos)
-
-Actualiza la imagen del frontend y documenta el proceso:
-```bash
-kubectl set image deployment/frontend-deployment nginx=nginx:1.26-alpine -n tarea-clase6
-kubectl rollout status deployment frontend-deployment -n tarea-clase6
-```
-
-### Desafío 3: Health Checks (15 puntos)
-
-Agrega liveness y readiness probes al deployment del backend:
-
+Agrega más labels útiles al deployment:
 ```yaml
-livenessProbe:
-  httpGet:
-    path: /health
-    port: 3000
-  initialDelaySeconds: 10
-  periodSeconds: 5
-readinessProbe:
-  httpGet:
-    path: /ready
-    port: 3000
-  initialDelaySeconds: 5
-  periodSeconds: 3
+labels:
+  app: webapp
+  env: homework
+  version: v1.0
+  tier: frontend
 ```
 
-### Desafío 4: Usar tu Propia Aplicación (20 puntos)
+### Bonus 2: Rolling Update (10 puntos)
 
-En lugar de usar imágenes predefinidas, crea tu propia API:
-- Dockerfile para tu aplicación
-- Push a Docker Hub
-- Usar en el deployment
+Actualiza la imagen a `nginx:1.26-alpine` y documenta:
+```bash
+kubectl set image deployment/webapp-deployment nginx=nginx:1.26-alpine
+kubectl rollout status deployment webapp-deployment
+kubectl rollout history deployment webapp-deployment
+```
+
+### Bonus 3: Usar tu propia imagen (15 puntos)
+
+En lugar de nginx, despliega tu propia aplicación:
+- Crea un Dockerfile
+- Construye y push a Docker Hub
+- Actualiza el deployment para usar tu imagen
 
 ---
 
-## Recursos de Ayuda
+## Ayuda: Ideas de Proyectos (Muy Simples)
 
-- [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-- [Services](https://kubernetes.io/docs/concepts/services-networking/service/)
-- [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-- Labs de la clase
+### Opción 1: Nginx Simple (Más Fácil)
+- Solo nginx:alpine con página por defecto
+- **Inspirado en Lab 02 + Lab 03**
+- No requiere programación
+- Perfecto si quieres enfocarte en K8s
+
+### Opción 2: Nginx con HTML Custom
+- Nginx con tu propia página HTML
+- Puedes usar ConfigMap para el HTML (Lab 02)
+- Un poco más personalizado
+
+### Opción 3: Aplicación Web Simple
+- Node.js con Express (solo "Hello World")
+- Python con Flask/FastAPI
+- Requiere Dockerfile y push a Docker Hub
+
+**Consejo:** La opción 1 es perfecta si quieres algo rápido. Enfócate en crear correctamente el Deployment y Service, no en la aplicación en sí.
+
+---
+
+## Recursos Adicionales
+
+- [Lab 02 - Primer Pod](../labs/02-primer-pod/)
+- [Lab 03 - Deployments](../labs/03-deployments/)
+- [Lab 04 - Services](../labs/04-services/)
+- [Demo - FastAPI Products](../demos/fastapi-products-k8s/)
+- [Cheatsheet Clase 6](../cheatsheet.md)
+- [Kubernetes Docs - Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [Kubernetes Docs - Services](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ---
 
 ## Preguntas Frecuentes
 
-**P: ¿Puedo usar otras imágenes?**
-R: Sí, pero deben ser compatibles y documentar por qué las elegiste.
-
-**P: ¿Debo usar namespace?**
-R: Es opcional pero recomendado para organización.
-
-**P: ¿Cómo verifico que MongoDB está funcionando?**
-R:
-```bash
-kubectl exec -it deployment/mongodb-deployment -n tarea-clase6 -- mongosh
-# Dentro de mongo:
-show dbs
-exit
-```
+**P: ¿Puedo usar otra imagen en lugar de nginx?**
+R: Sí, pero asegúrate de que exponga un puerto HTTP y documenta tu elección en el README.
 
 **P: ¿Qué hago si un pod no inicia?**
-R:
+R: Usa estos comandos para investigar:
 ```bash
-kubectl describe pod <pod-name> -n tarea-clase6
-kubectl logs <pod-name> -n tarea-clase6
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl get events
 ```
+
+**P: ¿Cómo accedo a la aplicación?**
+R: Con minikube:
+```bash
+minikube service webapp-service --url
+# Copia la URL en tu navegador
+```
+
+**P: ¿Debo usar namespace?**
+R: No es necesario. Usa el namespace `default`.
+
+**P: ¿Puedo cambiar el puerto NodePort?**
+R: Sí, pero debe estar en el rango 30000-32767. Documenta el cambio en tu README.
+
+**P: ¿Los manifests YAML deben ser exactos?**
+R: No. Puedes personalizarlos (otros nombres, labels, puertos), pero deben cumplir los requisitos mínimos.
 
 ---
 
 ## Limpieza
 
-Al terminar la tarea:
+Al terminar de trabajar en la tarea:
 
 ```bash
-# Eliminar namespace completo
-kubectl delete namespace tarea-clase6
+# Eliminar recursos
+kubectl delete -f deployment.yaml
+kubectl delete -f service.yaml
 
-# O eliminar recursos individuales
-kubectl delete -f mongodb/ -n tarea-clase6
-kubectl delete -f api/ -n tarea-clase6
-kubectl delete -f frontend/ -n tarea-clase6
+# Verificar que se eliminaron
+kubectl get all
 ```
 
 ---
@@ -428,7 +442,7 @@ kubectl delete -f frontend/ -n tarea-clase6
 
 Enviar por Moodle:
 - Link al repositorio GitHub/GitLab (público o dar acceso al instructor)
-- PDF con capturas de pantalla si el repositorio es privado
+- Descripción breve de tu implementación
 
 ---
 

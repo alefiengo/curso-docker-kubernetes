@@ -101,7 +101,7 @@ Ejercicio práctico de 5 minutos: desplegar la API de productos, experimentar co
 ---
 
 ### [Tarea para Casa](tareas/tarea-casa.md)
-Crea una aplicación multi-tier completa (frontend + backend + base de datos) desplegada en Kubernetes con Deployments y Services.
+Despliega una aplicación web en Kubernetes usando Deployment (3 réplicas) y Service (NodePort). Documenta el proceso y experimenta con escalado y auto-healing.
 
 **Entrega:** Antes de la Clase 7
 
