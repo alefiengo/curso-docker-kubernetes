@@ -80,9 +80,11 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
 
 ### Bloque 2: Kubernetes (Clases 6-8)
 
-- **Clase 6: Arquitectura Kubernetes** (próximamente)
-  - Deployments y Services
-  - Migración desde Docker Compose
+- **[Clase 6: Introducción a Kubernetes](bloque-kubernetes/clase6-introduccion/)**
+  - Arquitectura de Kubernetes (Control Plane y Worker Nodes)
+  - Pods: Unidad mínima de despliegue
+  - Deployments: Gestión declarativa de aplicaciones
+  - Services: Exposición de aplicaciones (ClusterIP, NodePort, LoadBalancer)
 
 - **Clase 7: Configuración y Networking** (próximamente)
   - ConfigMaps, Secrets y Probes
@@ -101,16 +103,24 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
 
 ### Instalaciones necesarias
 
+**Bloque 1 (Docker):**
 - **Docker Desktop** (Windows/macOS) o **Docker Engine** (Linux) - [Guía de instalación](INSTALL_DOCKER.md)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Git](https://git-scm.com/downloads)
 - [Google Chrome](https://www.google.com/chrome/)
 - [Postman](https://www.postman.com/downloads/)
 
+**Bloque 2 (Kubernetes):**
+- **minikube** - Cluster local de Kubernetes
+- **kubectl** - CLI de Kubernetes
+- [Guía de instalación Kubernetes](INSTALL_KUBERNETES.md)
+
 ### Instalaciones opcionales
 
 - **WSL2 + Ubuntu 24.04.1 LTS** (recomendado para Windows) - [Guía de instalación](INSTALL_WSL.md)
 - [Terminal Warp](https://www.warp.dev/)
+- [k9s](https://k9scli.io/) - Terminal UI para Kubernetes
+- [Lens](https://k8slens.dev/) - Kubernetes IDE
 
 ---
 
