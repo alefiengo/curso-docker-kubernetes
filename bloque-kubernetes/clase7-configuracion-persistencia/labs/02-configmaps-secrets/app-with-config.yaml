@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-demo
+  labels:
+    app: config-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: config-demo
+  template:
+    metadata:
+      labels:
+        app: config-demo
+    spec:
+      containers:
+      - name: app
+        image: busybox:1.36
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - |
+            echo "==================================="
+            echo "Configuración de la Aplicación"
+            echo "==================================="
+            echo "APP_NAME: $APP_NAME"
+            echo "APP_ENV: $APP_ENV"
+            echo "APP_VERSION: $APP_VERSION"
+            echo "LOG_LEVEL: $LOG_LEVEL"
+            echo ""
+            echo "==================================="
+            echo "Credenciales (desde Secret)"
+            echo "==================================="
+            echo "DB_USER: $DB_USER"
+            echo "DB_PASSWORD: $DB_PASSWORD"
+            echo "API_KEY: $API_KEY"
+            echo ""
+            echo "Aplicación iniciada. Presiona Ctrl+C para salir..."
+            sleep infinity
+        env:
+        # Variables desde ConfigMap
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_NAME
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_ENV
+        - name: APP_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_VERSION
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: LOG_LEVEL
+        # Variables desde Secret
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: DB_PASSWORD
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: API_KEY

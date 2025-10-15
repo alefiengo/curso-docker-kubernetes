@@ -20,9 +20,9 @@ El proyecto se encuentra en un repositorio independiente para mantener el códig
 | **3** | `v1.1-clase3` | + PostgreSQL | Persistencia con Spring Data JPA + Docker Compose |
 | **4** | `v1.2-clase4` | + Redis + Angular + Kong | Cache, frontend SPA, API Gateway |
 | **5** | `v1.3-clase5` | + Seguridad | Trivy scan, optimizaciones, non-root users |
-| **6** | `v2.0-clase6` | Migración a K8s | Deployments, Services, minikube |
-| **7** | `v2.1-clase7` | + ConfigMaps + Secrets + Ingress | Configuración externa, TLS |
-| **8** | `v2.2-clase8` | + HPA + Observabilidad | Autoscaling, Prometheus, Grafana, Loki |
+| **6** | `v2.0-clase6` | Migración a K8s | Deployments, Services básicos |
+| **7** | `v2.1-clase7` | + ConfigMaps + Secrets + StatefulSet | Configuración externa, persistencia |
+| **8** | `v2.2-clase8` | + Ingress + HPA + Observabilidad | Routing, autoscaling, Prometheus, Grafana, Loki |
 
 ---
 
@@ -85,8 +85,9 @@ Los estudiantes pueden:
 
 ### Infraestructura Kubernetes
 - **Deployments** + **Services**
+- **StatefulSet** (para PostgreSQL con persistencia)
 - **ConfigMaps** + **Secrets**
-- **NGINX Ingress** (routing con TLS)
+- **NGINX Ingress** (routing)
 - **HPA** (autoscaling horizontal)
 - **Prometheus** + **Grafana** (métricas)
 - **Loki** (logs centralizados)
@@ -121,11 +122,11 @@ Los estudiantes pueden:
 
 ---
 
-## Arquitectura Final
+## Arquitectura Final (v2.2)
 
 ```
                     ┌─────────────────────────────┐
-                    │     NGINX Ingress (TLS)     │
+                    │      NGINX Ingress          │
                     │  / → Angular                │
                     │  /api/* → Spring Boot       │
                     └─────────────────────────────┘
@@ -135,13 +136,15 @@ Los estudiantes pueden:
          ┌──────▼──────┐                   ┌───────▼────────┐
          │   Angular   │                   │  Spring Boot   │
          │  (frontend) │                   │   (backend)    │
+         │   2 pods    │                   │  3 pods + HPA  │
          └─────────────┘                   └────────┬───────┘
                                                     │
                                     ┌───────────────┼──────────────┐
                                     │               │              │
                              ┌──────▼─────┐  ┌─────▼─────┐  ┌────▼────┐
-                             │ PostgreSQL │  │   Redis   │  │  Kafka  │
-                             │    (DB)    │  │  (Cache)  │  │ (Queue) │
+                             │ PostgreSQL │  │   Redis   │  │ Observ. │
+                             │(StatefulSet)│  │  (Cache)  │  │ Prom+   │
+                             │   + PVC    │  │   1 pod   │  │ Grafana │
                              └────────────┘  └───────────┘  └─────────┘
 ```
 

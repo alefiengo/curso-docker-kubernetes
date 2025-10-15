@@ -293,7 +293,7 @@ Mínimo **4 capturas**:
 ### Restricciones
 
 - No copiar exactamente el lab o la demo (debe ser tu propia implementación)
-- Repositorio público o dar acceso al instructor
+- Repositorio público en GitHub o GitLab
 - Debe funcionar con `git clone` + `kubectl apply`
 
 ### Instrucciones de Entrega
@@ -441,7 +441,7 @@ kubectl get all
 **Antes de la Clase 7**
 
 Enviar por Moodle:
-- Link al repositorio GitHub/GitLab (público o dar acceso al instructor)
+- Link al repositorio público en GitHub o GitLab
 - Descripción breve de tu implementación
 
 ---

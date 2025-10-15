@@ -125,26 +125,26 @@ products-api-service   NodePort   10.96.123.45    <none>        80:30080/TCP   2
 ```
 
 **El script verificará:**
-- ✓ Deployment con todas las réplicas listas
-- ✓ Service configurado correctamente
-- ✓ Endpoints activos
-- ✓ Todos los endpoints de la API funcionando
-- ✓ Creación de productos (POST)
+- Deployment con todas las réplicas listas
+- Service configurado correctamente
+- Endpoints activos
+- Todos los endpoints de la API funcionando
+- Creación de productos (POST)
 
 **Salida esperada:**
 ```
 ==> Verificando dependencias...
-✓ Dependencias verificadas
+[OK] Dependencias verificadas
 ==> Verificando Deployment...
-✓ Deployment products-api: 3/3 réplicas listas
+[OK] Deployment products-api: 3/3 réplicas listas
 ==> Verificando Service...
-✓ Service products-api-service encontrado (tipo: NodePort, NodePort: 30080)
+[OK] Service products-api-service encontrado (tipo: NodePort, NodePort: 30080)
 ==> Probando endpoints de la API...
-✓ GET / - OK
-✓ GET /health - OK
-✓ GET /api/v1/products - OK (5 productos)
+[OK] GET / - OK
+[OK] GET /health - OK
+[OK] GET /api/v1/products - OK (5 productos)
 ...
-✓ Verificación completada exitosamente
+[OK] Verificación completada exitosamente
 ```
 
 ### Opción 2: Verificación manual

@@ -84,10 +84,24 @@ Aprende a usar Deployments para gestionar réplicas de pods, realizar actualizac
 
 ---
 
-### [Lab 04: Services](labs/04-services/)
-Expone tus aplicaciones usando Services. Aprende los diferentes tipos (ClusterIP, NodePort, LoadBalancer) y cómo funciona el service discovery con DNS.
+### [Lab 04: Service ClusterIP](labs/04-clusterip/)
+Aprende el tipo de Service por defecto para comunicación interna. Practica tanto la forma imperativa (comandos kubectl) como la declarativa (YAML). Explora Service Discovery con DNS.
 
-**Conceptos:** Services, ClusterIP, NodePort, LoadBalancer, endpoints, DNS, selectors
+**Conceptos:** ClusterIP, comunicación interna, Service Discovery, DNS, endpoints, selectors
+
+---
+
+### [Lab 05: Service NodePort](labs/05-nodeport/)
+Expone aplicaciones al exterior usando NodePort. Aprende cómo Kubernetes abre un puerto (30000-32767) en cada nodo. Compara forma imperativa vs declarativa.
+
+**Conceptos:** NodePort, acceso externo, puerto estático, multi-nodo, minikube service
+
+---
+
+### [Lab 06: Service LoadBalancer con MetalLB](labs/06-loadbalancer-metallb/)
+Configura MetalLB para tener LoadBalancers reales en minikube. Aprende el tipo de Service más avanzado para producción. Compara con minikube tunnel.
+
+**Conceptos:** LoadBalancer, MetalLB, IP externa, layer2, rango de IPs, producción
 
 ---
 
@@ -200,10 +214,10 @@ kubectl get endpoints <service>
 ## Siguiente Clase
 
 En la **Clase 7** veremos:
-- ConfigMaps y Secrets
-- Probes (liveness, readiness)
-- Ingress
-- Persistencia de datos
+- ConfigMaps y Secrets (configuración externa)
+- StatefulSets (aplicaciones con estado)
+- PersistentVolumes y PersistentVolumeClaims
+- Gestión de aplicaciones con persistencia de datos
 
 **Preparación:**
 - Completar la tarea para casa
