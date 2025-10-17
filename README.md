@@ -86,14 +86,17 @@ Formar a los participantes en el uso de containers (contenedores) con Docker y s
   - Deployments: Gestión declarativa de aplicaciones
   - Services: Exposición de aplicaciones (ClusterIP, NodePort, LoadBalancer)
 
-- **Clase 7: Configuración y Networking** (próximamente)
-  - ConfigMaps, Secrets y Probes
-  - Ingress y TLS
+- **[Clase 7: Namespaces, Configuración y Persistencia](bloque-kubernetes/clase7-configuracion-persistencia/)**
+  - Namespaces para organización de recursos
+  - ConfigMaps y Secrets para externalización de configuración
+  - StatefulSets para aplicaciones con estado
+  - PersistentVolumeClaims para persistencia de datos
 
-- **Clase 8: Escalado y Observabilidad** (próximamente)
+- **[Clase 8: Ingress, Health Probes y Escalado Automático](bloque-kubernetes/clase8-ingress-escalado/)**
+  - Ingress para routing HTTP avanzado
+  - Health Probes (Liveness, Readiness)
   - HPA (Horizontal Pod Autoscaler)
-  - Prometheus + Grafana + Loki
-  - Proyecto final
+  - Observabilidad con Prometheus + Grafana + Loki (demo)
 
 **[Ver bloques completos →](bloque-docker/)**
 
@@ -145,7 +148,7 @@ cd curso-docker-kubernetes/bloque-docker/clase1-introduccion
 
 El curso incluye un **proyecto integrador full-stack** que evoluciona progresivamente clase a clase.
 
-**📦 Repositorio:** [proyecto-integrador-docker-k8s](https://github.com/alefiengo/proyecto-integrador-docker-k8s)
+**Repositorio:** [proyecto-integrador-docker-k8s](https://github.com/alefiengo/proyecto-integrador-docker-k8s)
 
 ### Stack Completo (Clase 8)
 - Spring Boot + Angular
@@ -162,7 +165,7 @@ El curso incluye un **proyecto integrador full-stack** que evoluciona progresiva
 
 - Este repositorio es **público** y forma parte del curso oficial de i-Quattro
 - El material está diseñado para estudiantes matriculados, pero es de libre acceso para la comunidad
-- Si te resulta útil, ¡considera dejar una ⭐ en GitHub!
+- Si te resulta útil, considera dejar una estrella en GitHub
 
 ---
 

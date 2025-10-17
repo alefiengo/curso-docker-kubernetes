@@ -137,8 +137,8 @@ docker run -d -p 3002:3000 --name test-opt app:optimizado
 curl http://localhost:3002
 
 # Ver usuario que ejecuta el proceso
-docker exec test-sin-opt whoami  # root ❌
-docker exec test-opt whoami       # nodejs ✓
+docker exec test-sin-opt whoami  # root (INCORRECTO)
+docker exec test-opt whoami       # nodejs (CORRECTO)
 
 # Limpiar
 docker stop test-sin-opt test-opt
@@ -167,7 +167,7 @@ docker rm test-sin-opt test-opt
 
 ### ¿Por qué la imagen sin optimizar es tan grande?
 
-1. **Base pesada**: `node:18` incluye sistema completo (~1GB)
+1. **Base pesada**: node:18 incluye sistema completo (~1GB)
 2. **Herramientas innecesarias**: gcc, python, build tools
 3. **Cache de npm**: Archivos temporales
 4. **Sin multi-stage**: Todo queda en imagen final

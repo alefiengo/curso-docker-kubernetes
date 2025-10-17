@@ -290,16 +290,16 @@ done
 ### Selección de Imagen Base
 
 ```dockerfile
-# ❌ Imagen completa (muy pesada)
+# EVITAR: Imagen completa (muy pesada)
 FROM node:18                  # ~1GB
 FROM python:3.11              # ~900MB
 FROM eclipse-temurin:17       # ~450MB
 
-# ✅ Imagen slim (reducida)
+# PREFERIR: Imagen slim (reducida)
 FROM node:18-slim             # ~250MB
 FROM python:3.11-slim         # ~150MB
 
-# ✅ Imagen alpine (mínima)
+# PREFERIR: Imagen alpine (mínima)
 FROM node:18-alpine           # ~150MB
 FROM python:3.11-alpine       # ~50MB
 FROM eclipse-temurin:17-jre-alpine  # ~200MB
@@ -619,10 +619,10 @@ El cache se invalida cuando:
 
 ```dockerfile
 # Si cambias server.js:
-COPY package.json ./       # ✅ Cache HIT (no cambió)
-RUN npm install            # ✅ Cache HIT (package.json igual)
-COPY . .                   # ❌ Cache MISS (server.js cambió)
-CMD ["node", "server.js"]  # ❌ Se reconstruye (layer anterior cambió)
+COPY package.json ./       # Cache HIT (no cambió)
+RUN npm install            # Cache HIT (package.json igual)
+COPY . .                   # Cache MISS (server.js cambió)
+CMD ["node", "server.js"]  # Se reconstruye (layer anterior cambió)
 ```
 
 ### Orden Óptimo de Instrucciones
@@ -640,14 +640,14 @@ CMD ["node", "server.js"]  # ❌ Se reconstruye (layer anterior cambió)
 #### Ejemplo: Node.js
 
 ```dockerfile
-# ❌ MAL: Cache se invalida con cualquier cambio de código
+# EVITAR: Cache se invalida con cualquier cambio de código
 FROM node:18-alpine
 WORKDIR /app
 COPY . .                    # Copia TODO (package.json + código)
 RUN npm install             # Se reinstala siempre que cambies código
 CMD ["node", "server.js"]
 
-# ✅ BIEN: Cache se aprovecha al máximo
+# PREFERIR: Cache se aprovecha al máximo
 FROM node:18-alpine
 WORKDIR /app
 COPY package.json package-lock.json ./  # Solo manifiestos
@@ -663,13 +663,13 @@ CMD ["node", "server.js"]
 #### Ejemplo: Python
 
 ```dockerfile
-# ❌ MAL
+# EVITAR
 FROM python:3.11-alpine
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
 
-# ✅ BIEN
+# PREFERIR
 FROM python:3.11-alpine
 WORKDIR /app
 COPY requirements.txt ./
@@ -680,13 +680,13 @@ COPY . .
 #### Ejemplo: Java (Maven)
 
 ```dockerfile
-# ❌ MAL
+# EVITAR
 FROM maven:3.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# ✅ BIEN
+# PREFERIR
 FROM maven:3.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 COPY pom.xml ./
@@ -785,7 +785,7 @@ docker build -t mi-app .
 #3 [1/5] FROM docker.io/library/node:18-alpine
 #4 [2/5] WORKDIR /app
 #5 [3/5] COPY package*.json ./
-#6 CACHED [4/5] RUN npm install              # ✅ Cache HIT
+#6 CACHED [4/5] RUN npm install              # Cache HIT
 #7 [5/5] COPY . .
 ```
 
@@ -817,7 +817,7 @@ docker build -t app:v2 .
  => [1/6] FROM node:18-alpine                     0.0s
  => [2/6] WORKDIR /app                            0.0s
  => [3/6] COPY package*.json ./                   0.0s
- => CACHED [4/6] RUN npm install                  0.0s  # ✅ Rápido!
+ => CACHED [4/6] RUN npm install                  0.0s  # Rápido!
  => [5/6] COPY . .                                1.8s
  => [6/6] CMD ["node", "server.js"]               0.1s
 ```
@@ -855,12 +855,12 @@ docker build -t app:v3 .
 
 3. **Combinar RUN cuando tiene sentido**
    ```dockerfile
-   # ✅ Una capa, limpieza efectiva
+   # PREFERIR: Una capa, limpieza efectiva
    RUN apt-get update && \
        apt-get install -y curl && \
        apt-get clean
 
-   # ❌ Tres capas, limpieza no reduce tamaño
+   # EVITAR: Tres capas, limpieza no reduce tamaño
    RUN apt-get update
    RUN apt-get install -y curl
    RUN apt-get clean
@@ -964,17 +964,17 @@ docker logs <container-id> | grep -i "password\|secret\|token"
 
 ### Lista de Verificación
 
-- [ ] Imagen base alpine o slim
-- [ ] Multi-stage build implementado
-- [ ] Usuario non-root configurado
-- [ ] Health check funcional
-- [ ] Labels de metadata agregados
-- [ ] .dockerignore configurado
-- [ ] Escaneo Trivy (0 CRITICAL)
-- [ ] Variables de entorno para configuración
-- [ ] Sin secretos hardcoded
-- [ ] Logs no contienen datos sensibles
-- [ ] Tamaño de imagen optimizado
+- Imagen base alpine o slim
+- Multi-stage build implementado
+- Usuario non-root configurado
+- Health check funcional
+- Labels de metadata agregados
+- .dockerignore configurado
+- Escaneo Trivy (0 CRITICAL)
+- Variables de entorno para configuración
+- Sin secretos hardcoded
+- Logs no contienen datos sensibles
+- Tamaño de imagen optimizado
 
 ## Buenas Prácticas
 
@@ -983,13 +983,13 @@ docker logs <container-id> | grep -i "password\|secret\|token"
 **Por qué:** Reduce tamaño y superficie de ataque
 
 ```dockerfile
-# ✅ CORRECTO: Multi-stage
+# PREFERIR: Multi-stage
 FROM node:18-alpine AS build
 # ... build steps ...
 FROM node:18-alpine
 COPY --from=build /app/dist ./dist
 
-# ❌ INCORRECTO: Single stage
+# EVITAR: Single stage
 FROM node:18-alpine
 # Todo queda en imagen final
 ```
@@ -999,13 +999,13 @@ FROM node:18-alpine
 **Por qué:** Menos vulnerabilidades, menor tamaño
 
 ```dockerfile
-# ✅ CORRECTO: Alpine
+# PREFERIR: Alpine
 FROM node:18-alpine
 
-# ⚠️ ACEPTABLE: Slim
+# ACEPTABLE: Slim
 FROM node:18-slim
 
-# ❌ INCORRECTO: Full
+# EVITAR: Full
 FROM node:18
 ```
 
@@ -1014,10 +1014,10 @@ FROM node:18
 **Por qué:** Previene escalación de privilegios
 
 ```dockerfile
-# ✅ CORRECTO: Non-root
+# PREFERIR: Non-root
 USER appuser
 
-# ❌ INCORRECTO: Root
+# EVITAR: Root
 USER root  # o no especificar USER
 ```
 
@@ -1026,12 +1026,12 @@ USER root  # o no especificar USER
 **Por qué:** Aprovecha cache de Docker
 
 ```dockerfile
-# ✅ CORRECTO: Dependencias primero
+# PREFERIR: Dependencias primero
 COPY package.json ./
 RUN npm install
 COPY . .
 
-# ❌ INCORRECTO: Todo junto
+# EVITAR: Todo junto
 COPY . .
 RUN npm install
 ```
@@ -1041,13 +1041,13 @@ RUN npm install
 **Por qué:** Reduce tamaño final
 
 ```dockerfile
-# ✅ CORRECTO: Limpia en misma capa
+# PREFERIR: Limpia en misma capa
 RUN apt-get update && \
     apt-get install -y package && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# ❌ INCORRECTO: Limpia en capa separada
+# EVITAR: Limpia en capa separada
 RUN apt-get update
 RUN apt-get install -y package
 RUN apt-get clean  # No reduce tamaño de capas anteriores
@@ -1061,11 +1061,11 @@ RUN apt-get clean  # No reduce tamaño de capas anteriores
 # Problema: Archivos no tienen permisos correctos
 # Solución: Cambiar ownership ANTES de USER
 
-# ✅ CORRECTO:
+# CORRECTO:
 RUN chown -R appuser:appuser /app
 USER appuser
 
-# ❌ INCORRECTO:
+# INCORRECTO:
 USER appuser
 RUN chown -R appuser:appuser /app  # No tiene permisos para hacer esto
 ```

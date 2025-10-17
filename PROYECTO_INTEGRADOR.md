@@ -8,7 +8,7 @@ El proyecto integrador es una aplicación full-stack completa que se desarrolla 
 
 El proyecto se encuentra en un repositorio independiente para mantener el código de la aplicación separado del material del curso.
 
-**🔗 Repositorio:** [proyecto-integrador-docker-k8s](https://github.com/alefiengo/proyecto-integrador-docker-k8s)
+**Repositorio:** [proyecto-integrador-docker-k8s](https://github.com/alefiengo/proyecto-integrador-docker-k8s)
 
 ---
 

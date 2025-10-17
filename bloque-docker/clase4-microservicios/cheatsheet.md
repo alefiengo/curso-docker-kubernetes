@@ -536,9 +536,9 @@ RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
 ```
 
 **Por qué en Dockerfile:**
-- ✅ Funciona en Docker Compose, Swarm y Kubernetes
-- ✅ Imagen portable y auto-documentada
-- ✅ No necesitas reconfigurar en cada ambiente
+- Funciona en Docker Compose, Swarm y Kubernetes
+- Imagen portable y auto-documentada
+- No necesitas reconfigurar en cada ambiente
 
 ### Para imágenes oficiales (MongoDB, Redis, PostgreSQL)
 

@@ -581,38 +581,38 @@ docker build --no-cache -t mi-app .
 
 ### Dockerfiles
 
-- ✅ Usar imágenes base Alpine
-- ✅ Multi-stage builds
-- ✅ Usuario non-root
-- ✅ COPY específico (package.json antes que código)
-- ✅ Labels de metadata
-- ✅ Health checks
-- ✅ .dockerignore configurado
+- Usar imágenes base Alpine
+- Multi-stage builds
+- Usuario non-root
+- COPY específico (package.json antes que código)
+- Labels de metadata
+- Health checks
+- .dockerignore configurado
 
 ### Docker Compose
 
-- ✅ Named volumes para datos persistentes
-- ✅ Custom networks
-- ✅ depends_on para orden de inicio
-- ✅ Variables de entorno centralizadas
-- ✅ restart: unless-stopped para producción
-- ✅ NO usar version: (deprecated en Compose v2)
+- Named volumes para datos persistentes
+- Custom networks
+- depends_on para orden de inicio
+- Variables de entorno centralizadas
+- restart: unless-stopped para producción
+- NO usar version: (deprecated en Compose v2)
 
 ### Seguridad
 
-- ✅ Escanear con Trivy regularmente
-- ✅ 0 vulnerabilidades CRITICAL antes de deploy
-- ✅ Actualizar imágenes base frecuentemente
-- ✅ No hardcodear secretos
-- ✅ Usuario non-root siempre
+- Escanear con Trivy regularmente
+- 0 vulnerabilidades CRITICAL antes de deploy
+- Actualizar imágenes base frecuentemente
+- No hardcodear secretos
+- Usuario non-root siempre
 
 ### Optimización
 
-- ✅ Imagen Alpine sobre Full
-- ✅ Multi-stage para reducir tamaño
-- ✅ Aprovechar cache de layers
-- ✅ Limpiar en misma capa (RUN apt-get && clean)
-- ✅ JRE en lugar de JDK (Java)
+- Imagen Alpine sobre Full
+- Multi-stage para reducir tamaño
+- Aprovechar cache de layers
+- Limpiar en misma capa (RUN apt-get && clean)
+- JRE en lugar de JDK (Java)
 
 ---
 

@@ -36,33 +36,47 @@ Fundamentos de Kubernetes, arquitectura del cluster, y deployment básico de apl
 - Lab 01: Verificación del setup
 - Lab 02: Primer Pod
 - Lab 03: Deployments
-- Lab 04: Services
+- Lab 04: Service ClusterIP
+- Lab 05: Service NodePort
+- Lab 06: Service LoadBalancer con MetalLB
 
 ---
 
-### Clase 7: Configuración y Persistencia (próximamente)
+### [Clase 7: Namespaces, Configuración y Persistencia](clase7-configuracion-persistencia/)
 
-Gestión de configuración, secrets, health checks y persistencia de datos.
+Organización de recursos, externalización de configuración y gestión de aplicaciones con estado.
 
 **Temas:**
-- ConfigMaps y Secrets
-- Probes (liveness, readiness, startup)
-- Ingress Controllers
-- Volumes y PersistentVolumes
-- StatefulSets
+- Namespaces para organización de recursos
+- ConfigMaps para configuración no sensible
+- Secrets para credenciales y datos sensibles
+- StatefulSets para aplicaciones con estado
+- PersistentVolumeClaims para persistencia de datos
+- Headless Services para DNS estable
+
+**Labs:**
+- Lab 01: Namespaces - Organización y Aislamiento
+- Lab 02: ConfigMaps y Secrets
+- Lab 03: StatefulSet y Persistencia con PostgreSQL
 
 ---
 
-### Clase 8: Escalado y Observabilidad (próximamente)
+### [Clase 8: Ingress, Health Probes y Escalado Automático](clase8-ingress-escalado/)
 
-Escalado automático y monitoreo de aplicaciones en Kubernetes.
+Routing HTTP avanzado, health checks automáticos y escalado dinámico de aplicaciones.
 
 **Temas:**
-- Horizontal Pod Autoscaling (HPA)
-- Resources (requests y limits)
-- Prometheus y Grafana
-- Logging y tracing
-- Buenas prácticas de producción
+- Ingress para routing HTTP/HTTPS
+- NGINX Ingress Controller
+- Health Probes (Liveness, Readiness, Startup)
+- Horizontal Pod Autoscaler (HPA)
+- Metrics Server
+- Observabilidad con Prometheus, Grafana y Loki (demo)
+
+**Labs:**
+- Lab 01: Ingress - Routing HTTP
+- Lab 02: Health Probes
+- Lab 03: HPA - Horizontal Pod Autoscaler
 
 ---
 
@@ -73,8 +87,8 @@ El Proyecto Integrador evoluciona en este bloque migrando la arquitectura de mic
 | Versión | Clase | Stack |
 |---------|-------|-------|
 | v2.0 | 6 | Migración a K8s: Spring Boot + PostgreSQL (Deployments + Services) |
-| v2.1 | 7 | + ConfigMaps + Secrets + Ingress |
-| v2.2 | 8 | + HPA + Prometheus + Grafana (DEMO FINAL) |
+| v2.1 | 7 | + ConfigMaps + Secrets + StatefulSet (persistencia) |
+| v2.2 | 8 | + Ingress + HPA + Prometheus + Grafana (DEMO FINAL) |
 
 El Proyecto Integrador se muestra al final de cada clase como ejemplo de integración de los conceptos aprendidos.
 

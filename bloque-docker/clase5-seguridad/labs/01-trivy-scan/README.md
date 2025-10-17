@@ -127,10 +127,10 @@ Total: 2 (CRITICAL: 1, HIGH: 1)
 ```
 
 **Análisis:**
-- `libssl3` y `libcrypto3` tienen vulnerabilidades
-- Están en versión `3.1.4-r0`
-- Se resuelven actualizando a `3.1.4-r5`
-- **Fixed Version** indica que hay solución disponible
+- libssl3 y libcrypto3 tienen vulnerabilidades
+- Están en versión 3.1.4-r0
+- Se resuelven actualizando a 3.1.4-r5
+- Fixed Version indica que hay solución disponible
 
 #### Paso 2: Resolver actualizando la imagen base
 
@@ -155,10 +155,10 @@ trivy image --severity CRITICAL,HIGH nginx:1.25-alpine | grep "Total:"
 #### Paso 3: Actualizar Dockerfile
 
 ```dockerfile
-# ❌ ANTES (vulnerable)
+# ANTES (vulnerable)
 FROM nginx:1.24-alpine
 
-# ✅ DESPUÉS (actualizado)
+# DESPUÉS (actualizado)
 FROM nginx:1.25-alpine
 ```
 
@@ -203,7 +203,7 @@ docker build -t springboot-api:1.2-fixed .
 trivy image --severity CRITICAL,HIGH springboot-api:1.2-fixed
 
 # Resultado esperado:
-# Total: 0-1 (CRITICAL: 0, HIGH: 0-1)  ✅ Mejorado significativamente
+# Total: 0-1 (CRITICAL: 0, HIGH: 0-1)  Mejorado significativamente
 ```
 
 #### Paso 5: Verificar funcionalidad
