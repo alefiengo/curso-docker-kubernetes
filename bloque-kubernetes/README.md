@@ -84,13 +84,11 @@ Routing HTTP avanzado, health checks automáticos y escalado dinámico de aplica
 
 El Proyecto Integrador evoluciona en este bloque migrando la arquitectura de microservicios de Docker Compose a Kubernetes:
 
-| Versión | Clase | Stack |
-|---------|-------|-------|
-| v2.0 | 6 | Migración a K8s: Spring Boot + PostgreSQL (Deployments + Services) |
-| v2.1 | 7 | + ConfigMaps + Secrets + StatefulSet (persistencia) |
-| v2.2 | 8 | + Ingress + HPA + Prometheus + Grafana (DEMO FINAL) |
+| Versión | Clases | Stack |
+|---------|--------|-------|
+| v2.0-clases6-7-8 | 6, 7, 8 | Migración completa a K8s: Deployments, Services, ConfigMaps, Secrets, StatefulSet, Ingress, HPA |
 
-El Proyecto Integrador se muestra al final de cada clase como ejemplo de integración de los conceptos aprendidos.
+**Nota:** La versión v2.0 consolida todos los conceptos de Kubernetes en una sola versión funcional que se presenta progresivamente durante las Clases 6, 7 y 8.
 
 ---
 

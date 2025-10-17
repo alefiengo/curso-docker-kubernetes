@@ -353,7 +353,7 @@ En la próxima clase veremos:
 - **Health Probes**: Liveness, Readiness y Startup probes
 - **HPA**: Horizontal Pod Autoscaler (escalado automático basado en métricas)
 - **Observabilidad**: Prometheus, Grafana y Loki
-- **Demo Proyecto Integrador v2.2**: Stack completo con monitoreo
+- **Demo Proyecto Integrador v2.0**: Stack completo desplegado en Kubernetes
 
 **Preparación recomendada:**
 - Completar la tarea de esta clase

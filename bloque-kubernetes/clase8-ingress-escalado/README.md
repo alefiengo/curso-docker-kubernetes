@@ -75,7 +75,7 @@ Configura escalado automático basado en CPU. Genera carga para ver cómo Kubern
 
 ---
 
-## Demo: Proyecto Integrador v2.2
+## Demo: Proyecto Integrador v2.0
 
 **Stack completo de producción:**
 - Frontend (Angular) + Backend (Spring Boot) con Ingress

@@ -20,9 +20,9 @@ El proyecto se encuentra en un repositorio independiente para mantener el códig
 | **3** | `v1.1-clase3` | + PostgreSQL | Persistencia con Spring Data JPA + Docker Compose |
 | **4** | `v1.2-clase4` | + Redis + Angular + Kong | Cache, frontend SPA, API Gateway |
 | **5** | `v1.3-clase5` | + Seguridad | Trivy scan, optimizaciones, non-root users |
-| **6** | `v2.0-clase6` | Migración a K8s | Deployments, Services básicos |
-| **7** | `v2.1-clase7` | + ConfigMaps + Secrets + StatefulSet | Configuración externa, persistencia |
-| **8** | `v2.2-clase8` | + Ingress + HPA + Observabilidad | Routing, autoscaling, Prometheus, Grafana, Loki |
+| **6-8** | `v2.0-clases6-7-8` | Migración completa a K8s | Deployments, Services, ConfigMaps, Secrets, StatefulSet, Ingress, HPA |
+
+**Nota:** La versión v2.0 consolida todos los conceptos de Kubernetes (Clases 6, 7 y 8) en una sola versión funcional e integrada.
 
 ---
 
@@ -122,7 +122,7 @@ Los estudiantes pueden:
 
 ---
 
-## Arquitectura Final (v2.2)
+## Arquitectura Final (v2.0)
 
 ```
                     ┌─────────────────────────────┐
