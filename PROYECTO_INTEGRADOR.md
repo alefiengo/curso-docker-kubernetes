@@ -89,12 +89,13 @@ Los estudiantes pueden:
 - **ConfigMaps** + **Secrets**
 - **NGINX Ingress** (routing)
 - **HPA** (autoscaling horizontal)
-- **Prometheus** + **Grafana** (métricas)
-- **Loki** (logs centralizados)
+- **Health Probes** (liveness, readiness, startup)
+- **BFF Pattern** (nginx proxy en frontend)
 
-### Opcional
-- **Kafka** (mensajería - demo)
-- **Jenkins** (CI/CD - demo)
+### Conceptos Mencionados (no implementados)
+- Mensajería distribuida (Kafka, RabbitMQ)
+- CI/CD (Jenkins, GitHub Actions)
+- Observabilidad (Prometheus, Grafana, Loki)
 
 ---
 
@@ -136,16 +137,17 @@ Los estudiantes pueden:
          ┌──────▼──────┐                   ┌───────▼────────┐
          │   Angular   │                   │  Spring Boot   │
          │  (frontend) │                   │   (backend)    │
-         │   2 pods    │                   │  3 pods + HPA  │
+         │   2 pods    │                   │  2-5 pods HPA  │
+         │  nginx BFF  │                   │ Health Probes  │
          └─────────────┘                   └────────┬───────┘
                                                     │
                                     ┌───────────────┼──────────────┐
                                     │               │              │
-                             ┌──────▼─────┐  ┌─────▼─────┐  ┌────▼────┐
-                             │ PostgreSQL │  │   Redis   │  │ Observ. │
-                             │(StatefulSet)│  │  (Cache)  │  │ Prom+   │
-                             │   + PVC    │  │   1 pod   │  │ Grafana │
-                             └────────────┘  └───────────┘  └─────────┘
+                             ┌──────▼─────┐  ┌─────▼─────┐        │
+                             │ PostgreSQL │  │   Redis   │        │
+                             │(StatefulSet)│  │  (Cache)  │        │
+                             │   + PVC    │  │   1 pod   │        │
+                             └────────────┘  └───────────┘        │
 ```
 
 ---

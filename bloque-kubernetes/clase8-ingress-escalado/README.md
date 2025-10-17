@@ -11,7 +11,7 @@ Al finalizar esta clase, serás capaz de:
 - Configurar Ingress para routing HTTP avanzado (path-based)
 - Implementar health probes para detectar y recuperar pods enfermos
 - Configurar escalado automático con HPA basado en métricas de CPU
-- Entender el stack completo de observabilidad (demo Proyecto Integrador)
+- Desplegar una aplicación completa en Kubernetes con todos los componentes integrados
 
 ---
 
@@ -77,12 +77,12 @@ Configura escalado automático basado en CPU. Genera carga para ver cómo Kubern
 
 ## Demo: Proyecto Integrador v2.0
 
-**Stack completo de producción:**
+**Stack completo en Kubernetes:**
 - Frontend (Angular) + Backend (Spring Boot) con Ingress
 - Health probes en todos los pods
 - HPA escalando el backend bajo carga
 - ConfigMaps, Secrets, StatefulSet (PostgreSQL)
-- Observabilidad: Prometheus + Grafana + Loki
+- Patrón BFF (Backend-for-Frontend) para comunicación DNS
 
 Esta demo consolida todos los conceptos del bloque Kubernetes, mostrando cómo se integran en una aplicación real.
 
@@ -135,10 +135,10 @@ Desplegar aplicación completa con Ingress para routing, health probes configura
 - Scale-up es rápido (~30s), scale-down es lento (~5min) por diseño
 - Puedes escalar con métricas custom (no solo CPU/memoria)
 
-### Sobre Observabilidad
-- Prometheus + Grafana + Loki son el stack estándar
-- Instalación via Helm es la más común
-- En el Proyecto Integrador verás estos componentes integrados
+### Sobre Monitoreo
+- Kubernetes expone métricas via Metrics Server
+- `kubectl top pods` y `kubectl top nodes` muestran uso de recursos
+- Para producción, considera stacks como Prometheus + Grafana (fuera del alcance de este curso)
 
 ---
 
