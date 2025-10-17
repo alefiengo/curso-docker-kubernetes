@@ -338,6 +338,63 @@ Todos los pods deben estar `Running` o `Completed`.
 
 ---
 
+### curl se queda colgado (minikube + WSL2)
+
+**Problema:**
+```bash
+curl http://192.168.49.2/
+# Se queda colgado sin respuesta
+```
+
+**Causa:**
+En WSL2, la IP del Ingress (192.168.49.2) no es accesible directamente porque está en una red interna de minikube.
+
+**Soluciones:**
+
+**Opción 1: Port-forward (Recomendado para desarrollo)**
+```bash
+kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80
+```
+
+Luego accede con:
+```bash
+curl http://localhost:8080/
+curl http://localhost:8080/api
+```
+
+**Opción 2: minikube tunnel (Requiere privilegios)**
+```bash
+minikube tunnel
+```
+
+En otra terminal:
+```bash
+curl http://127.0.0.1/
+curl http://127.0.0.1/api
+```
+
+**Nota:** `minikube tunnel` requiere permisos de administrador y debe mantenerse corriendo.
+
+**Opción 3: Acceder desde dentro del cluster**
+```bash
+kubectl run test --image=busybox:1.36 --rm -it --restart=Never -- wget -qO- http://192.168.49.2/
+kubectl run test --image=busybox:1.36 --rm -it --restart=Never -- wget -qO- http://192.168.49.2/api
+```
+
+**Opción 4: Usar minikube service (alternativa)**
+```bash
+# Obtener URL directa al Ingress Controller
+minikube service -n ingress-nginx ingress-nginx-controller --url
+```
+
+Usa la URL que devuelve (generalmente `http://127.0.0.1:XXXXX`) para probar:
+```bash
+curl http://127.0.0.1:XXXXX/
+curl http://127.0.0.1:XXXXX/api
+```
+
+---
+
 ## Desafío adicional
 
 Agrega un tercer servicio llamado "admin" accesible en `/admin` usando el mismo Ingress.
